@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오션중학교 학부모용 학교 운영 길잡이</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .tab-active {
+            border-color: #1e3a8a;
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 sm:py-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-blue-900 p-2.5 rounded-full shadow-inner">
+                    <i class="fa-solid fa-school text-2xl sm:text-3xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-black tracking-wide">오션중학교</h1>
+                    <p class="text-xs sm:text-sm text-blue-200 font-light">Parent's School Operation Guide</p>
+                </div>
+            </div>
+            <div class="text-center sm:text-right bg-blue-950/40 px-4 py-2 rounded-lg border border-blue-700/30">
+                <span class="text-xs sm:text-sm font-medium text-blue-200">⚓ 학부모용 학교 운영 길잡이</span>
+                <p class="text-[11px] text-blue-300 mt-0.5">믿음과 사랑으로 함께 성장하는 오션 교육</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 py-6 sm:py-10">
+        
+        <!-- Welcome Banner -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 mb-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="space-y-2">
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full uppercase">안내 말씀</span>
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900">안녕하십니까, 오션중학교 학부모님!</h2>
+                <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                    본 길잡이는 우리 아이들의 행복하고 안전한 학교생활을 돕기 위해 마련된 <strong class="text-blue-900">학교 운영 핵심 지침 요약본</strong>입니다. 아래의 분야별 탭을 클릭하여 주요 운영 지침 및 유용한 자가 계산 도구들을 편리하게 확인해 보세요.
+                </p>
+            </div>
+            <div class="flex gap-2 w-full md:w-auto">
+                <button onclick="openModal('quickContact')" class="flex-1 md:flex-none text-center bg-blue-50 text-blue-900 hover:bg-blue-100 px-4 py-3 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 border border-blue-100">
+                    <i class="fa-solid fa-phone"></i> 긴급 연락처
+                </button>
+                <button onclick="scrollToCalculator()" class="flex-1 md:flex-none text-center bg-indigo-600 text-white hover:bg-indigo-700 px-5 py-3 rounded-xl font-semibold text-sm shadow-sm transition-all flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-calculator"></i> 스마트 계산기
+                </button>
+            </div>
+        </div>
+
+        <!-- Interactive Tabs Navigation -->
+        <div class="bg-white rounded-xl shadow-sm mb-6 border border-gray-200 overflow-hidden">
+            <div class="flex overflow-x-auto border-b border-gray-200 scrollbar-none" id="tabHeaders">
+                <button onclick="switchTab('tab1')" id="btn-tab1" class="flex-1 min-w-[120px] py-4 px-3 text-center border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300 font-medium text-sm sm:text-base transition-all flex flex-col items-center gap-1.5 tab-active">
+                    <i class="fa-solid fa-calendar-days text-lg"></i>
+                    <span>1. 학사/수업</span>
+                </button>
+                <button onclick="switchTab('tab2')" id="btn-tab2" class="flex-1 min-w-[120px] py-4 px-3 text-center border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300 font-medium text-sm sm:text-base transition-all flex flex-col items-center gap-1.5">
+                    <i class="fa-solid fa-clipboard-user text-lg"></i>
+                    <span>2. 출결/체험학습</span>
+                </button>
+                <button onclick="switchTab('tab3')" id="btn-tab3" class="flex-1 min-w-[120px] py-4 px-3 text-center border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300 font-medium text-sm sm:text-base transition-all flex flex-col items-center gap-1.5">
+                    <i class="fa-solid fa-file-signature text-lg"></i>
+                    <span>3. 평가/성적</span>
+                </button>
+                <button onclick="switchTab('tab4')" id="btn-tab4" class="flex-1 min-w-[120px] py-4 px-3 text-center border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300 font-medium text-sm sm:text-base transition-all flex flex-col items-center gap-1.5">
+                    <i class="fa-solid fa-user-shield text-lg"></i>
+                    <span>4. 생활지도</span>
+                </button>
+                <button onclick="switchTab('tab5')" id="btn-tab5" class="flex-1 min-w-[120px] py-4 px-3 text-center border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300 font-medium text-sm sm:text-base transition-all flex flex-col items-center gap-1.5">
+                    <i class="fa-solid fa-users-gear text-lg"></i>
+                    <span>5. 학부모/안전</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Contents Area -->
+        <div id="tabContents" class="space-y-6">
+
+            <!-- TAB 1: 학사 및 수업 운영 -->
+            <div id="tab1" class="tab-content block">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-blue-50 text-blue-950 rounded-lg"><i class="fa-solid fa-calendar text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">학년도 및 학기 구성</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            매 학년도는 당해 연도 <span class="text-blue-900 font-semibold">3월 1일부터 익년 2월 말일</span>까지 운영되며, 연간 총 2학기로 나누어 수업 및 활동을 진행합니다.
+                        </p>
+                        <div class="mt-4 bg-gray-50 p-3 rounded-lg text-xs text-gray-500">
+                            * 세부 방학식 및 개학일은 연간 교육계획서 일정을 참고해 주세요.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-indigo-50 text-indigo-900 rounded-lg"><i class="fa-solid fa-business-time text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">수업일수 확보</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            오션중학교는 관련 법령 및 지침에 따라 연간 최소 <span class="text-indigo-900 font-semibold">190일 이상</span>의 법정 수업일수를 안정적으로 확보하여 내실 있게 운영합니다.
+                        </p>
+                        <div class="mt-4 bg-gray-50 p-3 rounded-lg text-xs text-gray-500">
+                            * 천재지변 등 특수 사정 발생 시 임시휴업 등의 일수가 반영될 수 있습니다.
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-emerald-50 text-emerald-900 rounded-lg"><i class="fa-solid fa-graduation-cap text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">자유학기제 시행 (1학년)</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            부산광역시 교육과정 지침을 기반으로, <span class="text-emerald-800 font-semibold">1학년 1학기</span>를 자유학기로 지정하여 운영합니다. 이 기간에는 지필평가 대신 다양한 진로 및 선택 활동이 진행됩니다.
+                        </p>
+                        <ul class="mt-3 text-xs sm:text-sm text-gray-500 space-y-1 list-disc list-inside">
+                            <li>학생 중심 토론·실습 수업 확대</li>
+                            <li>진로 탐색 및 예술·체육 등 학생 선택 프로그램 운영</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-amber-50 text-amber-900 rounded-lg"><i class="fa-solid fa-clock text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">수업 시간 안내</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed text-sm sm:text-base">
+                            오션중학교의 기본 정규 수업 시간은 <span class="text-amber-800 font-semibold">1교시당 45분</span>을 원칙으로 합니다.
+                        </p>
+                        <div class="mt-4 border-t border-dashed border-gray-200 pt-3 flex justify-between text-xs text-gray-500">
+                            <span>쉬는 시간: 10분</span>
+                            <span>점심 시간: 약 60~70분</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: 출결 관리 및 체험학습 -->
+            <div id="tab2" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-red-50 text-red-900 rounded-lg"><i class="fa-solid fa-stretcher text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">질병 결석 처리 요령</h3>
+                        </div>
+                        <div class="space-y-2 text-gray-600 text-sm sm:text-base leading-relaxed">
+                            <p>결석 후 <strong class="text-red-800">5일 이내</strong>에 아래 서류를 담임교사에게 제출해 주셔야 질병 결석으로 인정됩니다.</p>
+                            <div class="bg-red-50/50 p-3 rounded-lg border border-red-100">
+                                <p class="text-xs font-semibold text-red-900 mb-1">제출 필요 서류:</p>
+                                <p class="text-xs text-red-800">의사 진단서, 소견서, 또는 처방전 등 객관적 증빙자료가 첨부된 <span class="underline font-bold">결석신고서</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-sky-50 text-sky-900 rounded-lg"><i class="fa-solid fa-plane-departure text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">교외체험학습 허용 및 절차</h3>
+                        </div>
+                        <div class="space-y-3 text-sm sm:text-base text-gray-600">
+                            <div class="flex justify-between items-center border-b pb-2">
+                                <span>연간 최대 허용 일수</span>
+                                <span class="font-bold text-sky-800">10일 이내 (공휴일 제외)</span>
+                            </div>
+                            <div class="space-y-2">
+                                <p class="text-xs font-semibold text-gray-700"><i class="fa-solid fa-circle-check text-sky-600 mr-1"></i>체험학습 흐름도:</p>
+                                <div class="grid grid-cols-3 gap-2 text-center text-[11px] font-medium">
+                                    <div class="bg-gray-100 p-2 rounded">① 실시 3일 전<br><strong class="text-blue-900">신청서 제출</strong></div>
+                                    <div class="bg-gray-100 p-2 rounded">② 승인 후<br><strong class="text-indigo-900">체험학습 실시</strong></div>
+                                    <div class="bg-gray-100 p-2 rounded">③ 종료 10일내<br><strong class="text-emerald-900">보고서 제출</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all md:col-span-2">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-purple-50 text-purple-900 rounded-lg"><i class="fa-solid fa-gift text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">경조사 출석인정 기준</h3>
+                        </div>
+                        <p class="text-gray-500 text-xs mb-3">* 사유 발생 시 증빙서류(청첩장, 사망진단서 등) 제출 시 출석으로 인정됩니다.</p>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 text-center">
+                                <span class="text-xs text-purple-700 font-medium block mb-1">본인 입양</span>
+                                <span class="text-lg font-black text-purple-950">20일</span>
+                            </div>
+                            <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 text-center">
+                                <span class="text-xs text-purple-700 font-medium block mb-1">형제·자매 결혼</span>
+                                <span class="text-lg font-black text-purple-950">1일</span>
+                            </div>
+                            <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 text-center">
+                                <span class="text-xs text-purple-700 font-medium block mb-1">부모·조부모 사망</span>
+                                <span class="text-lg font-black text-purple-950">5일</span>
+                            </div>
+                            <div class="bg-purple-50/50 p-4 rounded-xl border border-purple-100 text-center">
+                                <span class="text-xs text-purple-700 font-medium block mb-1">증조부모/외조부모 사망</span>
+                                <span class="text-lg font-black text-purple-950">3일</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: 평가 및 성적 관리 -->
+            <div id="tab3" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-blue-50 text-blue-900 rounded-lg"><i class="fa-solid fa-pen-clip text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">평가 구분 및 원칙</h3>
+                        </div>
+                        <div class="space-y-4 text-sm sm:text-base text-gray-600">
+                            <div>
+                                <p class="font-semibold text-gray-900">1) 정기고사와 수행평가</p>
+                                <p class="text-xs sm:text-sm mt-1">지필평가(중간·기말고사)와 평소 수업태도 및 역량을 측정하는 수행평가로 구분하여 실시합니다.</p>
+                            </div>
+                            <div class="border-t pt-3">
+                                <p class="font-semibold text-red-800 flex items-center gap-1">
+                                    <i class="fa-solid fa-triangle-exclamation"></i> 수행평가 중요 원칙
+                                </p>
+                                <p class="text-xs sm:text-sm mt-1 font-medium text-gray-800">
+                                    수행평가는 '수업 중 실시'를 절대 원칙으로 하며, 사교육 개입을 차단하기 위한 <strong class="text-red-600">과제형 수행평가는 전면 금지</strong>됩니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-teal-50 text-teal-950 rounded-lg"><i class="fa-solid fa-bullhorn text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">정보 공개 및 이의 신청</h3>
+                        </div>
+                        <div class="space-y-4 text-sm sm:text-base text-gray-600">
+                            <div>
+                                <p class="font-semibold text-gray-900">1) 평가 계획 전격 공개</p>
+                                <p class="text-xs sm:text-sm mt-1">매 학기 초에 과목별 평가 목적, 구체적인 방법, 실시 시기, 반영 비율 등을 학생과 학부모에게 사전에 전면 투명하게 공개합니다.</p>
+                            </div>
+                            <div class="border-t pt-3">
+                                <p class="font-semibold text-gray-900">2) 성적 이의 신청 제도</p>
+                                <p class="text-xs sm:text-sm mt-1 text-teal-800 font-medium">
+                                    평가 결과를 학생 본인이 직접 확인한 날로부터 <span class="bg-teal-50 font-bold px-1.5 py-0.5 rounded border border-teal-100 text-teal-900">3일 이내(공휴일 제외)</span>에 공식적으로 이의를 신청할 수 있습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: 학생 생활 지도 -->
+            <div id="tab4" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-orange-50 text-orange-900 rounded-lg"><i class="fa-solid fa-shirt text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">용모 및 복장 규정</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm sm:text-base text-gray-600">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-600 mt-1"></i>
+                                <span>단정한 두발 상태 유지 (지나친 염색, 탈색, 파마는 원칙적으로 금지함)</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-circle-info text-orange-600 mt-1"></i>
+                                <span>수업 및 안전에 지장을 주는 과도한 화장, 화려하거나 위험한 액세서리 착용 제한</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-teal-50 text-teal-900 rounded-lg"><i class="fa-solid fa-mobile-screen-button text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">휴대전화 및 소지품 관리</h3>
+                        </div>
+                        <ul class="space-y-3 text-sm sm:text-base text-gray-600">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-shield-halved text-teal-700 mt-1"></i>
+                                <span><strong class="text-teal-950">휴대전화 제출:</strong> 매일 아침 조례 시 담임교사에게 일괄 제출하여 보관 후, 하교 전 종례 시간에 일괄 반환합니다.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-shield-halved text-teal-700 mt-1"></i>
+                                <span><strong class="text-teal-950">소지품 검사:</strong> 학생 안전을 현저히 위협할 우려가 있는 특수한 경우에 한하여, 반드시 당사자 학생의 동의하에 실시할 수 있습니다.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Smart Device Warning Box -->
+                    <div class="bg-amber-50 rounded-2xl p-6 border border-amber-200 md:col-span-2">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="text-amber-800 text-2xl"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                            <h4 class="text-lg font-extrabold text-amber-950">학습용 스마트기기(태블릿/노트북) 관리 수칙</h4>
+                        </div>
+                        <p class="text-sm text-amber-900 mb-4 leading-relaxed">
+                            학교에서 대여·제공되는 교육용 스마트 단말기는 공용 자산입니다. 파손 및 분실 시 아래와 같이 사용자(학부모) 측의 경제적 책임(자부담)이 따르오니 자녀들에게 세심한 주의 지도를 부탁드립니다.
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-xl border border-amber-200 flex justify-between items-center">
+                                <span class="font-bold text-amber-950">기기 파손 및 침수 시</span>
+                                <span class="text-red-600 font-extrabold bg-red-50 px-3 py-1 rounded">수리 비용의 20% 부담</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-amber-200 flex justify-between items-center">
+                                <span class="font-bold text-amber-950">기기 완전 분실 시</span>
+                                <span class="text-red-600 font-extrabold bg-red-50 px-3 py-1 rounded">단말기 구입 비용의 40% 부담</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: 학부모 참여 및 안전 -->
+            <div id="tab5" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-indigo-50 text-indigo-900 rounded-lg"><i class="fa-solid fa-people-roof text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">학교운영위원회</h3>
+                        </div>
+                        <div class="space-y-2 text-sm sm:text-base text-gray-600 leading-relaxed">
+                            <p>학교 자치 실현을 위해 예·결산 등 학교 주요 사항을 심의 및 자문하는 최고의사결정 기구입니다.</p>
+                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100 flex items-center justify-between">
+                                <span class="font-semibold text-indigo-900">총 구성 인원</span>
+                                <span class="text-xl font-black text-indigo-950">12명</span>
+                            </div>
+                            <div class="bg-white p-2 rounded border border-dashed border-gray-200 text-xs text-center text-indigo-800 font-semibold">
+                                * 이 중 학부모 위원은 총 6명으로 구성됩니다.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="p-2 bg-emerald-50 text-emerald-950 rounded-lg"><i class="fa-solid fa-hands-holding-child text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">학부모회 구성 및 역할</h3>
+                        </div>
+                        <div class="space-y-3 text-sm sm:text-base text-gray-600">
+                            <p>오션중학교에 재학 중인 모든 학생의 학부모님은 당연 회원으로 가입 및 소속됩니다.</p>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div class="bg-emerald-50/40 p-3 rounded-lg text-center border border-emerald-100">
+                                    <span class="block text-xs text-emerald-800 font-bold mb-1">참여 모니터링</span>
+                                    <span class="text-[11px] text-gray-500">학교 교육 활동 참관 및 피드백</span>
+                                </div>
+                                <div class="bg-emerald-50/40 p-3 rounded-lg text-center border border-emerald-100">
+                                    <span class="block text-xs text-emerald-800 font-bold mb-1">봉사 및 협력</span>
+                                    <span class="text-[11px] text-gray-500">각종 행사 및 학생 안전 도우미</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all md:col-span-2">
+                        <div class="flex items-center space-x-3 mb-3">
+                            <span class="p-2 bg-rose-50 text-rose-900 rounded-lg"><i class="fa-solid fa-video text-xl"></i></span>
+                            <h3 class="text-lg font-bold text-gray-900">교내 안전 감시(CCTV) 시스템</h3>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-rose-50/50 p-5 rounded-2xl border border-rose-100">
+                            <div>
+                                <p class="text-sm font-bold text-rose-950">안심 교내 환경 구축 완료</p>
+                                <p class="text-xs text-rose-900 mt-1">각종 범죄 예방 및 학교폭력 방지를 위해 사각지대를 전면 최소화하여 CCTV 상시 감시 중입니다.</p>
+                            </div>
+                            <span class="bg-rose-600 text-white font-extrabold text-sm px-4 py-2 rounded-full shadow-sm flex items-center gap-2 self-stretch sm:self-auto text-center justify-center">
+                                <span class="animate-pulse w-2 h-2 rounded-full bg-white inline-block"></span> 24시간 연중무휴 작동 중
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Section: Interactive Calculators (체험학습 및 스마트기기 수리비 계산기) -->
+        <section id="interactiveCalculators" class="mt-12 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200">
+            <div class="border-b pb-4 mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-black text-gray-900 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-indigo-700"></i> 학부모 전용 스마트 계산기
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">번거로운 연산 없이 수치만 입력하여 빠르게 알아보세요.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Calculator 1: 교외체험학습 잔여일 계산기 -->
+                <div class="bg-slate-50 p-5 sm:p-6 rounded-2xl border border-slate-200 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-extrabold text-base sm:text-lg text-slate-800 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-plane text-sky-700"></i> 1. 교외체험학습 잔여일수 계산
+                        </h4>
+                        <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+                            사용하셨거나 예정된 체험학습 일수를 넣으면 신청 가능 잔여일이 계산됩니다. (연간 최대 10일 기준)
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">이미 사용한 총 체험학습 일수(일):</label>
+                                <input type="number" id="usedDays" min="0" max="10" placeholder="0" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold" oninput="calculateDays()">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">이번에 신청하려는 계획 일수(일):</label>
+                                <input type="number" id="planDays" min="0" placeholder="0" class="w-full px-3 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-sky-500 font-bold" oninput="calculateDays()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div id="dayCalcResult" class="mt-6 p-4 rounded-xl bg-white border border-slate-200 space-y-2 text-sm text-center">
+                        <span class="text-gray-400 text-xs">수치를 입력하면 결과가 업데이트됩니다.</span>
+                    </div>
+                </div>
+
+                <!-- Calculator 2: 기기 수리비/부실 자부담금 계산기 -->
+                <div class="bg-amber-50/40 p-5 sm:p-6 rounded-2xl border border-amber-200/80 flex flex-col justify-between">
+                    <div>
+                        <h4 class="font-extrabold text-base sm:text-lg text-amber-950 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-laptop-code text-amber-800"></i> 2. 학습기기 사용자 자부담금 계산
+                        </h4>
+                        <p class="text-xs text-amber-900/70 mb-4 leading-relaxed">
+                            기기 파손 시 수리비 실비의 20%, 분실 시 단말기 공식 구매 비용의 40%가 청구됩니다.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-amber-900 mb-1">사고 유형 선택:</label>
+                                <select id="accidentType" class="w-full px-3 py-2.5 rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 font-semibold text-sm bg-white" onchange="calculateDeviceCost()">
+                                    <option value="damage">일반 파손 / 액정 파손 / 침수 (수리비 20% 부담)</option>
+                                    <option value="loss">기기 완전 분실 (전체 가액의 40% 부담)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label id="priceLabel" class="block text-xs font-semibold text-amber-900 mb-1">예상 수리 견적액 (원):</label>
+                                <input type="number" id="deviceValue" min="0" placeholder="예: 250000" class="w-full px-3 py-2 rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 font-bold" oninput="calculateDeviceCost()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Box -->
+                    <div id="deviceCalcResult" class="mt-6 p-4 rounded-xl bg-white border border-amber-200 space-y-2 text-sm text-center">
+                        <span class="text-gray-400 text-xs">수치를 입력하면 결과가 업데이트됩니다.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="mt-12 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-100">
+            <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <i class="fa-solid fa-circle-question text-blue-900"></i> 자주 하시는 질문 (FAQ)
+            </h3>
+            
+            <div class="space-y-4">
+                <div class="border-b pb-4">
+                    <button class="w-full flex justify-between items-center text-left font-bold text-sm sm:text-base text-gray-800 hover:text-blue-900 focus:outline-none" onclick="toggleFaq(1)">
+                        <span>Q1. 결석 신고 시 병원 영수증이나 약 봉투도 질병 결석 증빙서류가 되나요?</span>
+                        <i id="faq-icon-1" class="fa-solid fa-chevron-down text-gray-400 transition-all"></i>
+                    </button>
+                    <div id="faq-ans-1" class="hidden mt-2 text-xs sm:text-sm text-gray-600 pl-4 leading-relaxed border-l-2 border-blue-900">
+                        네, 병원 영수증, 약 처방전, 약 봉투 등 질병명을 증빙할 수 있는 객관적인 서류라면 모두 가능하며 결석신고서에 첨부하여 담임선생님께 제출해주시면 됩니다.
+                    </div>
+                </div>
+
+                <div class="border-b pb-4">
+                    <button class="w-full flex justify-between items-center text-left font-bold text-sm sm:text-base text-gray-800 hover:text-blue-900 focus:outline-none" onclick="toggleFaq(2)">
+                        <span>Q2. 수행평가 성적이 나왔는데 자녀의 채점 결과가 동의되지 않습니다. 어떻게 하나요?</span>
+                        <i id="faq-icon-2" class="fa-solid fa-chevron-down text-gray-400 transition-all"></i>
+                    </button>
+                    <div id="faq-ans-2" class="hidden mt-2 text-xs sm:text-sm text-gray-600 pl-4 leading-relaxed border-l-2 border-blue-900">
+                        학생 본인이 성적 결과를 확인한 시점부터 3일(공휴일 제외) 이내에 교과 담당 선생님께 성적 이의를 제기하고 피드백 및 재심의를 정식 요청할 수 있습니다.
+                    </div>
+                </div>
+
+                <div class="pb-2">
+                    <button class="w-full flex justify-between items-center text-left font-bold text-sm sm:text-base text-gray-800 hover:text-blue-900 focus:outline-none" onclick="toggleFaq(3)">
+                        <span>Q3. 학부모회와 학교운영위원회의 근본적인 차이는 무엇인가요?</span>
+                        <i id="faq-icon-3" class="fa-solid fa-chevron-down text-gray-400 transition-all"></i>
+                    </button>
+                    <div id="faq-ans-3" class="hidden mt-2 text-xs sm:text-sm text-gray-600 pl-4 leading-relaxed border-l-2 border-blue-900">
+                        학교운영위원회는 교직원, 지역사회인사, 학부모 대표들이 함께 학교 예산과 핵심 지침을 직접 심의하는 최고 심의·자문 의사결정기구입니다. 반면, 학부모회는 재학생 전체 학부모가 참여하는 자치 기구로써 교육 모니터링이나 봉사활동을 직접 기획·실행하는 협력 단체 성격이 강합니다.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Interactive Custom Modal for Contact List -->
+    <div id="contactModal" class="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl transform transition-all duration-300 scale-95" id="modalCard">
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-blue-900 to-indigo-800 text-white p-5 flex justify-between items-center">
+                <h3 class="font-bold text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-phone-volume"></i> 오션중학교 안심 연락망
+                </h3>
+                <button onclick="closeModal()" class="text-white hover:text-gray-200 text-xl focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="p-6 space-y-4">
+                <p class="text-xs text-gray-500">문의 사항이 있으신 경우 해당 부서로 친절히 안내를 드립니다.</p>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="text-sm font-bold text-gray-700">학교 행정실 대표</span>
+                        <span class="text-sm text-blue-900 font-semibold bg-blue-50 px-3 py-1 rounded">051-XXX-XXXX</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="text-sm font-bold text-gray-700">교무실 / 학년교무실</span>
+                        <span class="text-sm text-blue-900 font-semibold bg-blue-50 px-3 py-1 rounded">051-XXX-XXXX</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b pb-2">
+                        <span class="text-sm font-bold text-gray-700">체험학습 관련 안내</span>
+                        <span class="text-sm text-blue-900 font-semibold bg-blue-50 px-3 py-1 rounded">051-XXX-XXXX</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-gray-700">스마트기기 고장/분실 신고</span>
+                        <span class="text-sm text-blue-900 font-semibold bg-blue-50 px-3 py-1 rounded">051-XXX-XXXX</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-end">
+                <button onclick="closeModal()" class="bg-blue-900 text-white font-semibold text-sm px-5 py-2.5 rounded-lg hover:bg-blue-800 transition-all">
+                    닫기
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 text-center py-6 border-t border-gray-800 mt-12">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p class="text-xs sm:text-sm">⚓ 오션중학교 (우 XXXXX) 부산광역시 강서구 명지오션시티 내 위치</p>
+            <p class="text-[11px] text-gray-500">© 2026 Ocean Middle School. All Rights Reserved. 학부모 운영 가이드 v1.1</p>
+        </div>
+    </footer>
+
+    <!-- Script Area -->
+    <script>
+        // 1. Tab Switch System
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.add('hidden');
+                contents[i].classList.remove('block');
+            }
+
+            // Remove active style from all tab headers
+            const headers = document.querySelectorAll('#tabHeaders button');
+            headers.forEach(button => {
+                button.classList.remove('tab-active');
+            });
+
+            // Show current active content and styling
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.remove('hidden');
+                targetContent.classList.add('block');
+            }
+
+            const targetHeader = document.getElementById('btn-' + tabId);
+            if (targetHeader) {
+                targetHeader.classList.add('tab-active');
+            }
+        }
+
+        // 2. Scroll to Calculator
+        function scrollToCalculator() {
+            const element = document.getElementById('interactiveCalculators');
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 3. Calculator 1: Field Calculation (Experience Learning Days)
+        function calculateDays() {
+            const usedDaysInput = document.getElementById('usedDays').value;
+            const planDaysInput = document.getElementById('planDays').value;
+
+            const used = usedDaysInput !== "" ? parseInt(usedDaysInput) : 0;
+            const plan = planDaysInput !== "" ? parseInt(planDaysInput) : 0;
+
+            const totalMax = 10;
+            const currentTotal = used + plan;
+            const remaining = totalMax - used;
+            const resultBox = document.getElementById('dayCalcResult');
+
+            if (used < 0 || plan < 0) {
+                resultBox.innerHTML = `<p class="text-red-600 font-semibold"><i class="fa-solid fa-triangle-exclamation"></i> 0 이상의 숫자를 정확하게 입력해 주세요.</p>`;
+                return;
+            }
+
+            if (used > totalMax) {
+                resultBox.innerHTML = `<p class="text-red-600 font-semibold"><i class="fa-solid fa-circle-xmark"></i> 입력 오류: 연간 최대 사용 가능일은 10일입니다.</p>`;
+                return;
+            }
+
+            let statusColor = "text-emerald-700 bg-emerald-50 border-emerald-100";
+            let msg = "";
+
+            if (currentTotal > totalMax) {
+                statusColor = "text-rose-700 bg-rose-50 border-rose-200";
+                msg = `<p class="font-bold text-base">⚠️ 승인 불가 (한도 초과)</p>
+                       <p class="text-xs text-gray-500 mt-1">남은 잔여일은 <strong class="text-rose-900">${remaining}일</strong>인데 신청하려는 일수는 <strong class="text-rose-900">${plan}일</strong>입니다.</p>`;
+            } else {
+                const finalRemaining = totalMax - currentTotal;
+                msg = `<p class="font-bold text-base text-emerald-950">✅ 신청 가능 승인 범위</p>
+                       <p class="text-xs text-gray-600 mt-1">이번 체험 일수 ${plan}일 적용 시, 올해 남게 될 잔여 체험학습 일수는 <strong class="text-emerald-900">${finalRemaining}일</strong>입니다.</p>`;
+            }
+
+            resultBox.className = `mt-6 p-4 rounded-xl border ${statusColor} space-y-1 text-sm text-center transition-all`;
+            resultBox.innerHTML = msg;
+        }
+
+        // 4. Calculator 2: Field Calculation (Device Repair Cost)
+        function calculateDeviceCost() {
+            const accidentType = document.getElementById('accidentType').value;
+            const priceInput = document.getElementById('deviceValue').value;
+            const resultBox = document.getElementById('deviceCalcResult');
+
+            const priceLabel = document.getElementById('priceLabel');
+            if (accidentType === 'damage') {
+                priceLabel.innerText = "예상 수리 견적액 (원):";
+            } else {
+                priceLabel.innerText = "단말기 공식 총 가격 (원):";
+            }
+
+            if (priceInput === "" || parseFloat(priceInput) <= 0) {
+                resultBox.innerHTML = `<span class="text-gray-400 text-xs">수치(원)를 입력하시면 실 부담금이 산출됩니다.</span>`;
+                resultBox.className = "mt-6 p-4 rounded-xl bg-white border border-amber-200 space-y-2 text-sm text-center";
+                return;
+            }
+
+            const rawPrice = parseFloat(priceInput);
+            let percent = 0;
+            let resultTypeStr = "";
+
+            if (accidentType === 'damage') {
+                percent = 0.20; // 20%
+                resultTypeStr = "기기 파손/침수 자부담금 (20%)";
+            } else {
+                percent = 0.40; // 40%
+                resultTypeStr = "기기 분실 변상액 (40%)";
+            }
+
+            const calculatedPay = Math.floor(rawPrice * percent);
+            const formattedInputPrice = Math.floor(rawPrice).toLocaleString();
+            const formattedPay = calculatedPay.toLocaleString();
+
+            resultBox.className = `mt-6 p-4 rounded-xl border bg-amber-50 border-amber-300 space-y-1 text-sm text-center text-amber-950 transition-all`;
+            resultBox.innerHTML = `
+                <span class="text-xs font-semibold text-amber-900">${resultTypeStr}</span>
+                <p class="text-lg sm:text-xl font-black mt-1 text-amber-900">
+                    실제 청구 예정액: <span class="text-red-600 underline decoration-double">${formattedPay}</span>원
+                </p>
+                <p class="text-[11px] text-gray-500 mt-1">입력 금액 ${formattedInputPrice}원에 해당하는 공식 청구 가액입니다.</p>
+            `;
+        }
+
+        // 5. Accordion FAQs
+        function toggleFaq(num) {
+            const answer = document.getElementById('faq-ans-' + num);
+            const icon = document.getElementById('faq-icon-' + num);
+            if (answer && icon) {
+                if (answer.classList.contains('hidden')) {
+                    answer.classList.remove('hidden');
+                    icon.style.transform = "rotate(180deg)";
+                } else {
+                    answer.classList.add('hidden');
+                    icon.style.transform = "rotate(0deg)";
+                }
+            }
+        }
+
+        // 6. Modal Functions
+        function openModal(modalId) {
+            const modal = document.getElementById('contactModal');
+            const card = document.getElementById('modalCard');
+            if (modal && card) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    card.classList.remove('scale-95');
+                    card.classList.add('scale-100');
+                }, 50);
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('contactModal');
+            const card = document.getElementById('modalCard');
+            if (modal && card) {
+                card.classList.remove('scale-100');
+                card.classList.add('scale-95');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 150);
+            }
+        }
+    </script>
+</body>
+</html>
